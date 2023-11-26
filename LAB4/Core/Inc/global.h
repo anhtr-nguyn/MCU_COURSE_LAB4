@@ -5,8 +5,6 @@
  *      Author: TrongAnh
  */
 
-#ifndef INC_GLOBAL_H_
-#define INC_GLOBAL_H_
 
 #ifndef INC_GLOBAL_H_
 #define INC_GLOBAL_H_

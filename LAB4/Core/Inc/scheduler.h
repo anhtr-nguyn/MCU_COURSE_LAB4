@@ -12,20 +12,12 @@
 
 #define MAX_TASK 5
 
-typedef struct{
-	//Delay, Period, Function, ID
-	int Delay;
-	int Period;
-	void (*Function)();
-	int RunMe;
-	int ID;
-}pTask;
 
-void SCH_Add(void(*), int, int, int);
-void SCH_Update();
-void SCH_Dispatch();
-void SCH_Delete(int);
-void SCH_Init();
+void SCH_Init(void);
+void SCH_Update(void);
+void SCH_Dispatch(void);
+void SCH_Add(void (*pFunction)(), int DELAY, int PERIOD);
+void SCH_Delete(uint32_t TASK_ID);
 
 
 
