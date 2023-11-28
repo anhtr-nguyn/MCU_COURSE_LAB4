@@ -8,6 +8,7 @@
 
 #include "global.h"
 #include "main.h"
+#include "button_reading.h"
 //5 LED
 //5 Delay (cycle khac nhau)
 /*
@@ -40,3 +41,6 @@ void led5()
 	HAL_GPIO_TogglePin(GPIOA, LED_5_Pin);
 }
 
+void test_input_output(){
+	HAL_GPIO_WritePin(debug_led_GPIO_Port, debug_led_Pin, isButton1Press());
+}

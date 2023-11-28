@@ -22,5 +22,5 @@ void led2();
 void led3();
 void led4();
 void led5();
-
+void test_input_output();
 #endif /* INC_GLOBAL_H_ */

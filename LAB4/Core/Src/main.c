@@ -19,11 +19,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "global.h"
-#include "scheduler.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "global.h"
+#include "my_scheduler.h"
+#include "button_reading.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,6 +98,9 @@ int main(void)
   SCH_Add(led3, 0, 200);
   SCH_Add(led4, 0, 300);
   SCH_Add(led5, 0, 400);
+  SCH_Add(getButtonValue, 0, 1);
+  SCH_Add(test_input_output, 0, 1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,8 +108,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  SCH_Dispatch();
+
     /* USER CODE BEGIN 3 */
+	SCH_Dispatch();
   }
   /* USER CODE END 3 */
 }
@@ -200,11 +205,18 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
                           |LED_5_Pin|debug_led_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : BUTTON_1_Pin */
+  GPIO_InitStruct.Pin = BUTTON_1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(BUTTON_1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED_1_Pin LED_2_Pin LED_3_Pin LED_4_Pin
                            LED_5_Pin debug_led_Pin */
@@ -218,16 +230,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	SCH_Update();
-	counter++;
-	if (counter == 100){
-		HAL_GPIO_TogglePin(debug_led_GPIO_Port, debug_led_Pin);
-//		(*listTask[4].pTask)();
-		counter = 0;
-	}
 }
 /* USER CODE END 4 */
 
