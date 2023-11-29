@@ -30,20 +30,17 @@ void SCH_Init(void){
 
 
 void SCH_Update(void){
-	for (int i = 0; i < MAX_TASK; i++){
-		if (listTask[i].ID != -1){
-			if(listTask[i].Delay == 0){
-				listTask[i].Runme++;
-				listTask[i].Delay = listTask[i].Period;
-			}
-			else{
-				listTask[i].Delay--;
-			}
+	if (listTask[0].pTask != 0 && listTask[0].Runme > 0){
+		if(listTask[0].Delay){
+			listTask[0].Delay -= 1;
+		}
+		else{
+			listTask[0].Runme +=1;
 		}
 	}
 }
 
-void SCH_Dispatch(void){
+void SCH_Dispatch_Tasks(void){
 	for (int i = 0; i < MAX_TASK; i++){
 		if(listTask[i].ID != -1 && listTask[i].Runme > 0){
 			(*listTask[i].pTask)();
@@ -55,9 +52,10 @@ void SCH_Dispatch(void){
 	}
 }
 
-void SCH_Add(void (*pFunction)(), int DELAY, int PERIOD){
+uint32_t SCH_Add_Task(void (* pFunction)(), uint32_t DELAY, uint32_t PERIOD){
 	static unsigned int GLOBAL_ID = 0;
 	int done = 0;
+	uint32_t Return_val = -1;
 	for (int i = 0; i < MAX_TASK && !done; i++){
 		if (listTask[i].ID == -1){
 			listTask[i].pTask = pFunction;
@@ -66,16 +64,21 @@ void SCH_Add(void (*pFunction)(), int DELAY, int PERIOD){
 			listTask[i].Runme = 0;
 			listTask[i].ID = GLOBAL_ID++;
 			done = 1;
+			Return_val = listTask[i].ID;
 		}
 	}
+	return Return_val;
 }
 
-void SCH_Delete(int ID){
+uint8_t SCH_Delete_Task(uint32_t taskID){
 	int done = 0;
+	uint8_t Return_val = 0;
 	for (int i = 0; i < MAX_TASK && !done; i++){
-		if(listTask[i].ID == ID){
+		if(listTask[i].ID == taskID){
 			listTask[i].ID = -1;
 			done = 1;
+			Return_val = 1;
 		}
 	}
+	return Return_val;
 }

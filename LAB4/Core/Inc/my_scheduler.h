@@ -16,10 +16,10 @@
 void SCH_Init(void);
 
 void SCH_Update(void);
-void SCH_Dispatch(void);
+void SCH_Dispatch_Tasks(void);
 
-void SCH_Add(void (*pFunction)(), int DELAY, int PERIOD);
-void SCH_Delete(int ID);
+uint32_t SCH_Add_Task(void (* pFunction)(), uint32_t DELAY, uint32_t PERIOD);
+uint8_t SCH_Delete_Task(uint32_t taskID);
 
 
 #endif /* INC_MY_SCHEDULER_H_ */
