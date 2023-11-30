@@ -93,13 +93,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   SCH_Init();
-  SCH_Add(led1, 500, 0);
-  SCH_Add(led2, 0, 100);
-  SCH_Add(led3, 0, 200);
-  SCH_Add(led4, 0, 300);
-  SCH_Add(led5, 0, 400);
-  SCH_Add(getButtonValue, 0, 1);
-  SCH_Add(test_input_output, 0, 1);
+  HAL_GPIO_WritePin(GPIOA, LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
+                            |LED_5_Pin|LED_6_Pin|LED_7_Pin, GPIO_PIN_RESET);
+  SCH_Add_Task(led1, 500, 0);
+  SCH_Add_Task(led2, 0, 50);
+  SCH_Add_Task(led3, 0, 100);
+  SCH_Add_Task(led4, 0, 150);
+  SCH_Add_Task(led5, 0, 200);
+  SCH_Add_Task(led6, 0, 250);
+  SCH_Add_Task(getButtonValue, 0, 1);
+  SCH_Add_Task(test_input_output, 0, 1);
 
   /* USER CODE END 2 */
 
@@ -110,7 +113,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	SCH_Dispatch();
+	  SCH_Dispatch_Tasks();
   }
   /* USER CODE END 3 */
 }
@@ -210,7 +213,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
-                          |LED_5_Pin|debug_led_Pin, GPIO_PIN_RESET);
+                          |LED_5_Pin|LED_6_Pin|LED_7_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : BUTTON_1_Pin */
   GPIO_InitStruct.Pin = BUTTON_1_Pin;
@@ -219,9 +222,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(BUTTON_1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED_1_Pin LED_2_Pin LED_3_Pin LED_4_Pin
-                           LED_5_Pin debug_led_Pin */
+                           LED_5_Pin LED_6_Pin LED_7_Pin */
   GPIO_InitStruct.Pin = LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
-                          |LED_5_Pin|debug_led_Pin;
+                          |LED_5_Pin|LED_6_Pin|LED_7_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

@@ -9,12 +9,7 @@
 #include "global.h"
 #include "main.h"
 #include "button_reading.h"
-//5 LED
-//5 Delay (cycle khac nhau)
-/*
- * LED1 one shot (delay tu chon) -> Task Delete
- * 4LEDs with different cycle
- * */
+
 
 void led1()
 {
@@ -41,6 +36,11 @@ void led5()
 	HAL_GPIO_TogglePin(GPIOA, LED_5_Pin);
 }
 
+void led6(){
+	HAL_GPIO_TogglePin(GPIOA, LED_6_Pin);
+}
 void test_input_output(){
-	HAL_GPIO_WritePin(debug_led_GPIO_Port, debug_led_Pin, isButton1Press());
+	if(isButton1Press()){
+		HAL_GPIO_TogglePin(LED_7_GPIO_Port, LED_7_Pin);
+	}
 }

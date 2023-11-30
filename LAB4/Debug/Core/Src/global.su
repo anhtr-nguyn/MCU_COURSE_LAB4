@@ -3,4 +3,5 @@ global.c:24:6:led2	8	static
 global.c:29:6:led3	8	static
 global.c:34:6:led4	8	static
 global.c:39:6:led5	8	static
-global.c:44:6:test_input_output	8	static
+global.c:44:6:led6	8	static
+global.c:47:6:test_input_output	8	static

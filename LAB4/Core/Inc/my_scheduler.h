@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#define MAX_TASK	7
+#define MAX_TASK	8
 
 
 void SCH_Init(void);

@@ -1,4 +1,3 @@
-button_reading.c:25:6:getKey1	8	static
-button_reading.c:46:5:isButton1Press	4	static
-button_reading.c:50:5:isButton1LongPress	4	static
+button_reading.c:23:6:getKey1	8	static
+button_reading.c:45:5:isButton1Press	4	static
 button_reading.c:53:6:getButtonValue	8	static
